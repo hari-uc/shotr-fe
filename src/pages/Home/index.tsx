@@ -3,6 +3,8 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Link, ArrowRight, Plus } from 'lucide-react';
+const { HOST_URL } = process.env;
+
 
 export default function Home() {
   const [topics, setTopics] = useState(['Tech', 'Social', 'Education']);
@@ -25,24 +27,27 @@ export default function Home() {
           <div className="flex items-center space-x-2">
             <Link className="h-5 w-5 text-blue-500" />
             <h2 className="text-2xl font-semibold text-gray-700">
-                Shorten URL
+              Shorten URL
             </h2>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Input 
-              type="url" 
+            <Input
+              type="url"
               placeholder="Enter your long url here"
               className="h-10"
             />
           </div>
-          <div className="space-y-2">
-            <Input 
-              type="text" 
+          <div className="flex items-center space-x-2">
+            <span className="text-xs text-gray-500">{HOST_URL}</span>
+
+            <Input
+              type="text"
               placeholder="Custom alias (optional)"
-              className="h-8 text-sm"
+              className="w-1/2 h-8 text-sm"
             />
+
           </div>
           <div className="space-y-2">
             {showTopicInput ? (
