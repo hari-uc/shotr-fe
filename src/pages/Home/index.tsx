@@ -70,7 +70,7 @@ export default function Home() {
                   onChange={(e) => setSelectedTopic(e.target.value)}
                   className="flex-1 h-8 px-3 text-sm rounded-md border border-input bg-background"
                 >
-                  <option value="">Select a topic</option>
+                  <option value="">Select a topic (optional)</option>
                   {topics.map((topic) => (
                     <option key={topic} value={topic}>
                       {topic}
