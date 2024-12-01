@@ -22,9 +22,31 @@ export default function Home() {
   const handleKeyPress = (e: { key: string; }) => {
     if (e.key === 'Enter' && newTopic.trim()) {
       setTopics([...topics, newTopic.trim()]);
+      setSelectedTopic(newTopic.trim());
       setNewTopic('');
       setShowTopicInput(false);
     }
+  };
+
+  const isValidUrl = (url: string) => {
+    try {
+      const urlObj = new URL(url);
+      return urlObj.protocol && 
+             urlObj.host && 
+             urlObj.pathname && 
+             !urlObj.host.includes(HOST_URL as string);
+    } catch (error) {
+      return false;
+    }
+  };
+  
+  const handleLongUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isValidUrl(e.target.value)) {
+      setError('Please enter a valid URL');
+    } else {
+      setError(null);
+    }
+    setLongUrl(e.target.value);
   };
 
   const resetForm = () => {
@@ -102,7 +124,7 @@ export default function Home() {
               placeholder="Enter your long url here"
               className="h-10"
               value={longUrl}
-              onChange={(e) => setLongUrl(e.target.value)}
+              onChange={handleLongUrlChange}
               disabled={isLoading}
             />
           </div>
@@ -171,7 +193,7 @@ export default function Home() {
           <Button 
             className="w-full space-x-2" 
             onClick={handleShorten}
-            disabled={isLoading}
+            disabled={isLoading || !longUrl}
           >
             {isLoading ? (
               <>
